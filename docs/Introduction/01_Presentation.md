@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: Introduction/Presentation
+permalink: /Introduction/Presentation/
 ---
 
 ---

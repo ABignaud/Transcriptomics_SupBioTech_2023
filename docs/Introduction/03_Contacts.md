@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: Introduction/Contacts
+permalink: /Introduction/Contacts/
 ---
 
 ---

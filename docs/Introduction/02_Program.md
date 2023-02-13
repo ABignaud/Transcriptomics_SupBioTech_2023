@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: Introduction/Program
+permalink: /Introduction/Program/
 ---
 
 ---

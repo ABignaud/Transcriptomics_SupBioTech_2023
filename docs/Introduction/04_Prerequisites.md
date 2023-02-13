@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: Introduction/Config"
+permalink: /Introduction/Config/
 ---
 
 ---
