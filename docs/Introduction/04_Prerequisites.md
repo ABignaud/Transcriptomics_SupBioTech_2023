@@ -1,5 +1,7 @@
 ---
-title: "4. Prerequisites and required config"
+layout: default
+permalink: Introduction/Config"
 ---
 
-## Prerequisites
+---
+# Config

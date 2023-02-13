@@ -1,7 +1,9 @@
 ---
-title: "3. Contacts"
+layout: default
+permalink: Introduction/Contacts
 ---
 
+---
 ## Contacts 
 
-[Amaury Bignaud](mailto:amaury.bignaud@pasteur.fr)
+Amaury Bignaud: [amaury.bignaud@pasteur.fr](mailto:amaury.bignaud@pasteur.fr)
