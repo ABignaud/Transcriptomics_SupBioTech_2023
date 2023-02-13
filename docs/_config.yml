@@ -29,7 +29,7 @@ url: "https://abignaud.github.io/Transcriptomics_SupBioTech_2023/" # the base ho
 github_username: ABignaud
 
 # Build settings
-theme: minima
+remote-theme: pages-themes/slate
 plugins:
   - jekyll-feed
 
