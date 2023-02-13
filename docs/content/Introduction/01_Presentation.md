@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /Transcriptomics_SupBioTech_2023/Introduction/Presentation/
+permalink: /Introduction/Presentation/
 ---
 
 ---

@@ -4,10 +4,10 @@ title: "Introduction"
 permalink: /Introduction/
 ---
 
-[**1. Presentation**](/Introduction/Presentation)  
-[**2. Program**](/Introduction/Program)  
-[**3. Contacts**](/Introduction/Contacts)  
-[**4. Config**](/Introduction/Config)  
+[**1. Presentation**](/Transcriptomics_SupBioTech_2023/Introduction/Presentation)  
+[**2. Program**](/Transcriptomics_SupBioTech_2023/Introduction/Program)  
+[**3. Contacts**](/Transcriptomics_SupBioTech_2023/Introduction/Contacts)  
+[**4. Config**](/Transcriptomics_SupBioTech_2023/Introduction/Config)  
 
 ## Course content: 
 
