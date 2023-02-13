@@ -9,4 +9,4 @@ Course slides are available in the `Presentations` directory.
 Exercises are available in the `Exercises` directory. 
 `Html` versions of `.Rmd` files have been pre-compiled 
 and can be browsed directly from 
-[the course website]().
+[the course website](https://abignaud.github.io/Transcriptomics_SupBioTech_2023/).
