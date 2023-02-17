@@ -8,10 +8,10 @@ permalink: /Session02/
 
 ## Presentations
 
-- **\[20 minutes\]** Lecture 3 - Presentation of RNA-seq experiment
+- **\[20 minutes\]** Lecture 3 - The RNA-seq experiment
 [[PDF]]()
 
-- **\[30 minutes\]** Lecture 4 - Sequence alignment.
+- **\[30 minutes\]** Lecture 4 - How to align sequencing data to a reference genome
 [[PDF]]()
 
 ---
@@ -21,5 +21,7 @@ permalink: /Session02/
 -  **\[1h\]** Practical 2 - Sequence alignment & introduction to IGV.
     [[HTML]()]
 
-    > Utilization of `bowtie2`, `samtools` and `deeptools` to generate the alignment tracks and visualization with `IGV`.
+    > Utilization of `bowtie2`, `samtools` and `deeptools` to generate the 
+    alignment tracks 
+    > Visualization of the alignment data using `IGV`.
 

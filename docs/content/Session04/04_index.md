@@ -8,8 +8,8 @@ permalink: /Session04/
 
 ## Presentations
 
-- **\[1h 15\]** Lecture 6 - Single cell RNA-seq
-[[PDF]](https://github.com/ABignaud/Transcriptomics_SupBioTech_2023/Presentations/07_Single_cell_RNAseq.pdf)
+- **\[20 minutes\]** Lecture 6 - Single cell RNA-seq
+[[PDF]]()
 
 ---
 
@@ -19,10 +19,10 @@ Exam QCM
 
 ## Exercises
 
--  **\[1h 15\]** Practical 4 - Gene set enrichment analysis. 
+-  **\[20 minutes\]** Practical 4 - Gene set enrichment analysis. 
     [[HTML]()]
 
-    > Usage of GSEA package. 
+    > Utilization of GSEA package. 
     
 ---
 

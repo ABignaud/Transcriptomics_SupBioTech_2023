@@ -8,7 +8,7 @@ permalink: /Session01/
 
 ## Presentations
 
-- **\[20 minutes\]** Lecture 1 - Introduction to Transcriptomics. 
+- **\[20 minutes\]** Lecture 1 - Introduction to Transcriptomics
 [[PDF]]()
 
 - **\[30 minutes\]** Lecture 2 - Introduction to Next Generation Sequencing (NGS)
@@ -20,7 +20,8 @@ permalink: /Session01/
 
 Check if everyone manage to install the dependencies.
 
--  **\[1h\]** Practical 1 - 
+-  **\[1h\]** Practical 1 - Assessing sequencing data quality.
     [[HTML]()]
 
-    > Using *fastQC*, *fastq screen*, *multiQC*, quality controls
+    > Learn to do control the quality of sequencing data using *fastQC*, 
+    *fastq screen*, *multiQC*.
