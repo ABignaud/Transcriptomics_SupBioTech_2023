@@ -9,10 +9,10 @@ permalink: /Session01/
 ## Presentations
 
 - **\[20 minutes\]** Lecture 1 - Introduction to Transcriptomics
-[[PDF]]()
+[[PDF]](1_Transcriptomics.pdf)
 
 - **\[30 minutes\]** Lecture 2 - Introduction to Next Generation Sequencing (NGS)
-[[PDF]]()
+[[PDF]](2_NGS.pdf)
 
 ---
 
