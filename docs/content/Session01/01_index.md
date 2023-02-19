@@ -21,7 +21,7 @@ permalink: /Session01/
 Check if everyone manage to install the dependencies.
 
 -  **\[1h\]** Practical 1 - Assessing sequencing data quality.
-    [[HTML]()]
+    [[HTML](QC)]
 
     > Learn to do control the quality of sequencing data using *fastQC*, 
     *fastq screen*, *multiQC*.

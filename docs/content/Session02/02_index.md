@@ -19,7 +19,7 @@ permalink: /Session02/
 ## Exercises
 
 -  **\[1h\]** Practical 2 - Sequence alignment & introduction to IGV.
-    [[HTML]()]
+    [[HTML](sequence_alignment)]
 
     > Utilization of `bowtie2`, `samtools` and `deeptools` to generate the 
     alignment tracks 
