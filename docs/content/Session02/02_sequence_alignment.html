@@ -10364,8 +10364,7 @@ permalink: /Session02/sequence_alignment
           align the reads on the reference genome. The most known algorithm for mapping are <code>bowtie2</code>,
           <code>bwa</code> and <code>minimap</code>. There are also some others aligners more specific to RNA-seq such
           as <code>STAR</code> or <code>salmon</code>. For bacteria where the genomes are small with no repeated
-          regions, there are not necessary.
-        </p>
+          regions, there are not necessary.</p>
         <p>In this practical we will use <a href="https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">bowtie2</a>
           as <code>bwa</code> and <code>minimap</code> are not well suited for very short reads (&lt;100bp).</p>
         <p>The aligner algorithm needs to index the fasta. An index will be like a dictionnary where the sequence
@@ -10395,8 +10394,7 @@ permalink: /Session02/sequence_alignment
         <p><br></p>
         <p>Once the index is done we can use th e<code>bowtie2</code> command to map the reads. We will used the
           <code>--very-sensitive</code> method. You can look a the <a
-            href="https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">documentation</a>:
-        </p>
+            href="https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">documentation</a>:</p>
         <div class="sourceCode" id="cb6">
           <pre
             class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="ex">bowtie2</span> --help</span></code></pre>
@@ -10489,7 +10487,7 @@ NS500446:543:HNM5TBGX7:1:11101:19648:1065       163     manual_scaffold_1       
               class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="co"># Sort and compressed the sam file.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="ex">samtools</span> sort -n -O BAM results/alignment/T0.sam -o T0_tmp1.bam</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="co"># Keep only pairs with both reads mapped.</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="ex">samtools</span> fixmate --output-fmt bam -m T0_tmp1.bam T0_tmp2.bam</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="ex">samtools</span> fixmate --output-fmt bam T0_tmp1.bam T0_tmp2.bam</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="co"># Filter reads with low mapping quality.</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="ex">samtools</span> view --output-fmt bam -f 2 -q 30 -1 -b T0_tmp2.bam -o T0_tmp1.bam</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="co"># Sort the resulting reads.</span></span>
@@ -10510,24 +10508,27 @@ NS500446:543:HNM5TBGX7:1:11101:19648:1065       163     manual_scaffold_1       
             href="https://github.com/deeptools/deepTools">deeptools</a>.</p>
         <div class="sourceCode" id="cb11">
           <pre
-            class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam <span class="dt">{input.bam}</span> <span class="kw">\</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>    <span class="ex">--outFileName</span> <span class="dt">{output.unstranded}</span> <span class="kw">\</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    <span class="ex">--numberOfProcessors</span> <span class="dt">{threads}</span> <span class="kw">\</span></span>
+            class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/tracks</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam <span class="kw">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    <span class="ex">--outFileName</span> results/tracks/T0_unstranded.bw <span class="kw">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>    <span class="ex">--normalizeUsing</span> CPM <span class="kw">\</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>    <span class="ex">--extendReads</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam <span class="dt">{input.bam}</span> <span class="kw">\</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>    <span class="ex">--outFileName</span> <span class="dt">{output.fw}</span> <span class="kw">\</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>    <span class="ex">--normalizeUsing</span> CPM <span class="kw">\</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>    <span class="ex">--extendReads</span> <span class="kw">\</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a>    <span class="ex">--filterRNAstrand</span> forward</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam <span class="dt">{input.bam}</span> <span class="kw">\</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a>    <span class="ex">--outFileName</span> <span class="dt">{output.rv}</span> <span class="kw">\</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true"></a>    <span class="ex">--normalizeUsing</span> CPM <span class="kw">\</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true"></a>    <span class="ex">--extendReads</span> <span class="kw">\</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true"></a>    <span class="ex">--filterRNAstrand</span> reverse</span></code></pre>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>    <span class="ex">--extendReads</span> <span class="kw">\</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    <span class="ex">--ignoreDuplicates</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam <span class="kw">\</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>    <span class="ex">--outFileName</span> results/tracks/T0_forward.bw <span class="kw">\</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>    <span class="ex">--normalizeUsing</span> CPM <span class="kw">\</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a>    <span class="ex">--extendReads</span> <span class="kw">\</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a>    <span class="ex">--filterRNAstrand</span> forward <span class="kw">\</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a>    <span class="ex">--ignoreDuplicates</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam <span class="kw">\</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true"></a>    <span class="ex">--outFileName</span> results/tracks/T0_reverse.bw <span class="kw">\</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true"></a>    <span class="ex">--normalizeUsing</span> CPM <span class="kw">\</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true"></a>    <span class="ex">--extendReads</span> <span class="kw">\</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true"></a>    <span class="ex">--filterRNAstrand</span> reverse <span class="kw">\</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true"></a>    <span class="ex">--ignoreDuplicates</span></span></code></pre>
         </div>
         <p>The output files are <code>bigwig</code> which are compress files with coverage of a genomic track.</p>
         <blockquote>
@@ -10568,8 +10569,7 @@ NS500446:543:HNM5TBGX7:1:11101:19648:1065       163     manual_scaffold_1       
         <h2>Visualizing the alignment using IGV</h2>
         <p>Now let’s visualize our tracks using IGV. In IGV you can load the fasta genome and then the sorted
           <code>bam</code>, <code>bigwig</code> or <code>gff</code>. The <code>gff</code> is the genome annotation file
-          with the genes position.
-        </p>
+          with the genes position.</p>
       </div>
     </div>
 

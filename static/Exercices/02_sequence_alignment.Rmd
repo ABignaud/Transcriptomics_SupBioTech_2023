@@ -244,7 +244,7 @@ them using `samtools`. The `bam` file is the compressed version of `sam`.
 # Sort and compressed the sam file.
 samtools sort -n -O BAM results/alignment/T0.sam -o T0_tmp1.bam
 # Keep only pairs with both reads mapped.
-samtools fixmate --output-fmt bam -m T0_tmp1.bam T0_tmp2.bam
+samtools fixmate --output-fmt bam T0_tmp1.bam T0_tmp2.bam
 # Filter reads with low mapping quality.
 samtools view --output-fmt bam -f 2 -q 30 -1 -b T0_tmp2.bam -o T0_tmp1.bam
 # Sort the resulting reads.
@@ -265,24 +265,27 @@ sequence of interest, genes in our case. To do that we will use the
 `bamCoverage` function from [deeptools](https://github.com/deeptools/deepTools).
 
 ```{sh eval = FALSE}
-bamCoverage --bam {input.bam} \
-    --outFileName {output.unstranded} \
-    --binSize 1 \
-    --numberOfProcessors {threads} \
-    --normalizeUsing CPM \
-    --extendReads
-bamCoverage --bam {input.bam} \
-    --outFileName {output.fw} \
+mkdir -p results/tracks
+bamCoverage --bam results/alignment/T0_sorted.bam \
+    --outFileName results/tracks/T0_unstranded.bw \
     --binSize 1 \
     --normalizeUsing CPM \
     --extendReads \
-    --filterRNAstrand forward
-bamCoverage --bam {input.bam} \
-    --outFileName {output.rv} \
+    --ignoreDuplicates
+bamCoverage --bam results/alignment/T0_sorted.bam \
+    --outFileName results/tracks/T0_forward.bw \
     --binSize 1 \
     --normalizeUsing CPM \
     --extendReads \
-    --filterRNAstrand reverse
+    --filterRNAstrand forward \
+    --ignoreDuplicates
+bamCoverage --bam results/alignment/T0_sorted.bam \
+    --outFileName results/tracks/T0_reverse.bw \
+    --binSize 1 \
+    --normalizeUsing CPM \
+    --extendReads \
+    --filterRNAstrand reverse \
+    --ignoreDuplicates
 ```
 
 The output files are `bigwig` which are compress files with coverage of a 
