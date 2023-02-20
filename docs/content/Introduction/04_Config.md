@@ -56,10 +56,10 @@ Run it and use the advanced settings:
 
 Do not do this part if it's not working.
 
-Now open the terminal (3rd panel). If you didn't managed to do that step, it's 
+Now open the terminal (3rd panel). If you didn't manage to do that step, it's 
 ok.
 
-For some reason, it seems taht you may have to leave the mounted repository to 
+For some reason, it seems that you may have to leave the mounted repository to 
 be able to assess the files in it. To do that enter these commands.
 
 ```sh
@@ -69,7 +69,7 @@ ls
 ```
 
 The `ls` should yield you the list of the files inside your folder. So the
-archive that you previoulsy downloaded should be listed. If not, it's not 
+archive that you previously downloaded should be listed. If not, it's not 
 working. Check that you have loaded the right folder in the advanced settings 
 used.
 
