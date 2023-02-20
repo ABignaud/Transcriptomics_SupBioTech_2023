@@ -32,7 +32,8 @@ computer on your computer and all of you will work exactly on the same machine.
 To install go the search bar at the top and search for 
 `abignaud/transcriptomics_supbiotech_2023`, search for an `image` and then pull
 it. It will take a little time to download (few GB as there are the whole OS for
-the computer).
+the computer). If you don't find the image, try to search just `abignaud` or 
+with only the part of the name.
 
 ![download_image](assets/image_download.png)
 
@@ -53,8 +54,24 @@ Run it and use the advanced settings:
 
 ## Open terminal
 
+Do not do this part if it's not working.
+
 Now open the terminal (3rd panel). If you didn't managed to do that step, it's 
 ok.
+
+For some reason, it seems taht you may have to leave the mounted repository to 
+be able to assess the files in it. To do that enter these commands.
+
+```sh
+cd ..
+cd data
+ls 
+```
+
+The `ls` should yield you the list of the files inside your folder. So the
+archive that you previoulsy downloaded should be listed. If not, it's not 
+working. Check that you have loaded the right folder in the advanced settings 
+used.
 
 Open the archive file, by entering that command:
 
