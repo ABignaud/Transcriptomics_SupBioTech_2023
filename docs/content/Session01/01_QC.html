@@ -10330,8 +10330,7 @@ permalink: /Session01/QC
             and must contain the same number of symbols as letters in the sequence.</p>
           <p><em>Note: the file extension for fastq file can be <code>.fastq</code>, <code>.fq</code>.</em></p>
           <p>Before launching some software we will try to read the different files. To do that you can use the
-            <code>cd</code> bash command to change of directory:
-          </p>
+            <code>cd</code> bash command to change of directory:</p>
           <div class="sourceCode" id="cb1">
             <pre
               class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="bu">cd</span> transcriptomics_supbiotech_2023</span></code></pre>
@@ -10503,13 +10502,9 @@ CTGGTNTGGGTGAACTTCACCTTGATANCATTGNTGACCGTATNAAACGCG</code></pre>
             </div>
             </p>
           </details>
-          <p>Now let’s have a look at our own fastqc, you can open the html report using any internet browser. If you
-            want to continue with command lines, the <code>*html</code> means any file finishing by html will be use.
-            The <code>*</code> hold for any characters possible. So just <code>*</code> will mean any file.</p>
-          <div class="sourceCode" id="cb14">
-            <pre
-              class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="ex">firefox</span> results/fastqc/*html</span></code></pre>
-          </div>
+          <p>Now let’s have a look at our own fastqc. Open the your file explorer and open the folder where you work.
+            You will see there is a <code>results/fastqc</code> directory. Inside it there are the fastqc report in html
+            format, you can open them using any internet browser.</p>
           <blockquote>
             <p>What do you see on the report ?</p>
           </blockquote>
@@ -10544,31 +10539,28 @@ CTGGTNTGGGTGAACTTCACCTTGATANCATTGNTGACCGTATNAAACGCG</code></pre>
         <details>
           <summary><strong>Clue</strong></summary>
           <p>
-          <div class="sourceCode" id="cb15">
+          <div class="sourceCode" id="cb14">
             <pre
-              class="sourceCode sh"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="ex">fastq_screen</span> --help</span></code></pre>
+              class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="ex">fastq_screen</span> --help</span></code></pre>
           </div>
           </p>
         </details>
         <details>
           <summary><strong>Clue 2</strong></summary>
           <p>
-            You will need to give the fasta genome indexed. To give them they are config file availabe at ``.
+            You will need to give the fasta genome indexed. To give them they are config file availabe at
+            <code>reference/fastq_screen.conf</code>.
           </p>
         </details>
         <details>
           <summary><strong>Show code</strong></summary>
           <p>
-          <div class="sourceCode" id="cb16">
+          <div class="sourceCode" id="cb15">
             <pre
-              class="sourceCode sh"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/fastqscreen</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="ex">fastq_screen</span> <span class="kw">\</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>    <span class="ex">--outdir</span> results/fastq_screen <span class="kw">\</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>    <span class="ex">--conf</span> reference/fastq_screen.conf <span class="kw">\</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>    <span class="ex">fastq/*.fq.gz</span> </span></code></pre>
+              class="sourceCode sh"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/fastqscreen</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="ex">fastq_screen</span> --outdir results/fastq_screen --conf reference/fastq_screen.conf --force fastq/Bacillus_infection_T0_R1.fq.gz fastq/Bacillus_infection_T0_R2.fq.gz fastq/Bacillus_infection_T10_R1.fq.gz fastq/Bacillus_infection_T10_R2.fq.gz </span></code></pre>
           </div>
-          The <code>\</code> allows going back to the line inside a command. Here, it’s just to improve the readability
-          of the code.
+          <p>As for the fastqc report, you can open the fastq-screen report using your file explorer directly.</p>
           </p>
         </details>
         <blockquote>
@@ -10596,21 +10588,15 @@ CTGGTNTGGGTGAACTTCACCTTGATANCATTGNTGACCGTATNAAACGCG</code></pre>
         <details>
           <summary><strong>Show code</strong></summary>
           <p>
-          <div class="sourceCode" id="cb17">
+          <div class="sourceCode" id="cb16">
             <pre
-              class="sourceCode sh"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/multiqc</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="ex">multiqc</span> <span class="kw">\</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>    <span class="ex">--title</span> <span class="st">&#39;Bacillus infection&#39;</span> <span class="kw">\</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>    <span class="ex">--outdir</span> results/multiqc <span class="kw">\</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>    <span class="ex">--module</span> fastqc <span class="kw">\</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>    <span class="ex">--module</span> fastq_screen <span class="kw">\</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>    <span class="ex">fastq</span> <span class="kw">\</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>    <span class="ex">results/fastqc</span> <span class="kw">\</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>    <span class="ex">results/fastq_screen/</span></span></code></pre>
+              class="sourceCode sh"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/multiqc</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="ex">multiqc</span> --title <span class="st">&#39;Bacillus infection&#39;</span> --outdir results/multiqc --module fastqc --module fastq_screen fastq results/fastqc results/fastq_screen/</span></code></pre>
           </div>
           </p>
         </details>
-        <p>As an output you will have nice plot with the aggregated results from all previous QC.</p>
+        <p>As an output you will have nice report with the aggregated results from all previous QC, that you can open
+          using your file</p>
         <p>There are some other metrics that must be checked but most of them needs further treatment of the data, and
           we will see them in the next sessions.</p>
       </div>

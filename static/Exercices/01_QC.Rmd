@@ -264,14 +264,10 @@ fastqc --outdir results/fastqc fastq/Bacillus_infection_T10_R1.fq.gz fastq/Bacil
 </p>
 </details>
 
-Now let's have a look at our own fastqc, you can open the html report using any 
-internet browser. If you want to continue with command lines, the `*html` 
-means any file finishing by html will be use. The `*` hold for any characters 
-possible. So just `*` will mean any file.
-
-```{sh eval = FALSE}
-firefox results/fastqc/*html
-```
+Now let's have a look at our own fastqc. Open the your file explorer and open 
+the folder where you work. You will see there is a `results/fastqc` directory. 
+Inside it there are the fastqc report in html format, you can open them using 
+any internet browser.
 
 > What do you see on the report ?
 
@@ -314,7 +310,7 @@ fastq_screen --help
 <details><summary>**Clue 2**</summary>
 <p>
 You will need to give the fasta genome indexed. To give them they are config 
-file availabe at ``. 
+file availabe at `reference/fastq_screen.conf`. 
 </p>
 </details>
 
@@ -322,14 +318,12 @@ file availabe at ``.
 <p>
 ```{sh eval = FALSE}
 mkdir -p results/fastqscreen
-fastq_screen \
-    --outdir results/fastq_screen \
-    --conf reference/fastq_screen.conf \
-    fastq/*.fq.gz 
+fastq_screen --outdir results/fastq_screen --conf reference/fastq_screen.conf --force fastq/Bacillus_infection_T0_R1.fq.gz fastq/Bacillus_infection_T0_R2.fq.gz fastq/Bacillus_infection_T10_R1.fq.gz fastq/Bacillus_infection_T10_R2.fq.gz 
 ```
 
-The `\` allows going back to the line inside a command. Here, it's just to
-improve the readability of the code.
+As for the fastqc report, you can open the fastq-screen report using your file
+explorer directly.
+
 </p>
 </details>
 
@@ -362,20 +356,13 @@ This is just software to make a nice report from several QC software.
 <p>
 ```{sh eval = FALSE}
 mkdir -p results/multiqc
-multiqc \
-    --title 'Bacillus infection' \
-    --outdir results/multiqc \
-    --module fastqc \
-    --module fastq_screen \
-    fastq \
-    results/fastqc \
-    results/fastq_screen/
+multiqc --title 'Bacillus infection' --outdir results/multiqc --module fastqc --module fastq_screen fastq results/fastqc results/fastq_screen/
 ```
 </p>
 </details>
 
-As an output you will have nice plot with the aggregated results from all 
-previous QC.
+As an output you will have nice report with the aggregated results from all 
+previous QC, that you can open using your file
 
 There are some other metrics that must be checked but most of them needs further
 treatment of the data, and we will see them in the next sessions.

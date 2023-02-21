@@ -10291,8 +10291,8 @@ permalink: /Session02/sequence_alignment
       <p>All the data are available in the <code>transcriptomics_supbiotech_2023/</code> folder.</p>
       <div id="trimming-the-adaptors" class="section level2">
         <h2>Trimming the adaptors</h2>
-        <p>As we saw in the first session there were some adapters sequences at the beginning of the reads. The solution
-          is to trimmed the reads to remove these bases to avoid mapping issues as they were artificially added.</p>
+        <p>As we saw in the first session there were some adaptors sequences at the beginning of the reads. The solution
+          is to trim the reads to remove these bases to avoid mapping issues as they were artificially added.</p>
         <blockquote>
           <p>Looking at the fastqc report from the previous session how much base pairs will you remove ?</p>
         </blockquote>
@@ -10305,7 +10305,7 @@ permalink: /Session02/sequence_alignment
         <p><br></p>
         <p>To trim the sequence we will use <a href="https://github.com/marcelm/cutadapt">cutadapt</a> software.</p>
         <blockquote>
-          <p>Looking at the help menu of cutadpat what command do you propose to trim your reads ?</p>
+          <p>Looking at the help menu of cutadapt what command do you propose to trim your reads ?</p>
         </blockquote>
         <details>
           <summary><strong>Clue:</strong></summary>
@@ -10323,16 +10323,8 @@ permalink: /Session02/sequence_alignment
           <div class="sourceCode" id="cb2">
             <pre
               class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/cutadapt/</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="ex">cutadapt</span> -u 8 -U 8 -q 33,33 --trim-n -m 20 <span class="kw">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="ex">-o</span> results/cutadapt/Bacillus_infection_T0_R1_trimmed.fq.gz <span class="kw">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    <span class="ex">-p</span> results/cutadapt/Bacillus_infection_T0_R2_trimmed.fq.gz <span class="kw">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="ex">fastq/Bacillus_infection_T0_R1.fq.gz</span> <span class="kw">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    <span class="ex">fastq/Bacillus_infection_T0_R2.fq.gz</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="ex">cutadapt</span> -u 8 -U 8 -q 33,33 --trim-n -m 20 <span class="kw">\</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="ex">-o</span> results/cutadapt/Bacillus_infection_T10_R1_trimmed.fq.gz <span class="kw">\</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="ex">-p</span> results/cutadapt/Bacillus_infection_T10_R2_trimmed.fq.gz <span class="kw">\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="ex">fastq/Bacillus_infection_T10_R1.fq.gz</span> <span class="kw">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>    <span class="ex">fastq/Bacillus_infection_T10_R2.fq.gz</span></span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="ex">cutadapt</span> -u 8 -U 8 -q 33,33 --trim-n -m 20 -o results/cutadapt/Bacillus_infection_T0_R1_trimmed.fq.gz -p results/cutadapt/Bacillus_infection_T0_R2_trimmed.fq.gz fastq/Bacillus_infection_T0_R1.fq.gz fastq/Bacillus_infection_T0_R2.fq.gz</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="ex">cutadapt</span> -u 8 -U 8 -q 33,33 --trim-n -m 20 -o results/cutadapt/Bacillus_infection_T10_R1_trimmed.fq.gz -p results/cutadapt/Bacillus_infection_T10_R2_trimmed.fq.gz fastq/Bacillus_infection_T10_R1.fq.gz fastq/Bacillus_infection_T10_R2.fq.gz</span></code></pre>
           </div>
           </p>
         </details>
@@ -10346,10 +10338,7 @@ permalink: /Session02/sequence_alignment
             <pre
               class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/fastqc results/fastq_screen</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="ex">fastqc</span> -o results/fastqc results/cutadapt/*fq.gz </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="ex">fastq_screen</span> <span class="kw">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="ex">--outdir</span> results/fastq_screen <span class="kw">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="ex">--conf</span> reference/fastq_screen.conf <span class="kw">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="ex">results/cutadapt/*fq.gz</span> </span></code></pre>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="ex">fastq_screen</span> --outdir results/fastq_screen --conf reference/fastq_screen.conf --force results/cutadapt/*fq.gz </span></code></pre>
           </div>
           </p>
         </details>
@@ -10360,8 +10349,8 @@ permalink: /Session02/sequence_alignment
       </div>
       <div id="aligning-the-sequences" class="section level2">
         <h2>Aligning the sequences</h2>
-        <p>Now that we have cleaned and well prepared our sequences we can start our analysis. The first step is to
-          align the reads on the reference genome. The most known algorithm for mapping are <code>bowtie2</code>,
+        <p>Now that we have cleaned and well-prepared our sequences we can start our analysis. The first step is to
+          align the reads on the reference genome. The most known algorithms for mapping are <code>bowtie2</code>,
           <code>bwa</code> and <code>minimap</code>. There are also some others aligners more specific to RNA-seq such
           as <code>STAR</code> or <code>salmon</code>. For bacteria where the genomes are small with no repeated
           regions, there are not necessary.</p>
@@ -10392,8 +10381,8 @@ permalink: /Session02/sequence_alignment
           </p>
         </details>
         <p><br></p>
-        <p>Once the index is done we can use th e<code>bowtie2</code> command to map the reads. We will used the
-          <code>--very-sensitive</code> method. You can look a the <a
+        <p>Once the index is done we can use the <code>bowtie2</code> command to map the reads. We will use the
+          <code>--very-sensitive</code> method. You can look at the <a
             href="https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">documentation</a>:</p>
         <div class="sourceCode" id="cb6">
           <pre
@@ -10433,24 +10422,48 @@ permalink: /Session02/sequence_alignment
           <div class="sourceCode" id="cb7">
             <pre
               class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/alignment</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="ex">bowtie2</span> <span class="kw">\</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>    <span class="ex">--very-sensitive</span> <span class="kw">\</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    <span class="ex">--maxins</span> 1000 <span class="kw">\</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    <span class="ex">-x</span> reference/index/YB886 <span class="kw">\</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>    <span class="ex">-1</span> results/cutadapt/Bacillus_infection_T0_R1_trimmed.fq.gz <span class="kw">\</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>    <span class="ex">-2</span> results/cutadapt/Bacillus_infection_T0_R2_trimmed.fq.gz <span class="kw">\</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>    <span class="ex">-S</span> results/alignment/T0.sam</span></code></pre>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="ex">bowtie2</span> --very-sensitive --maxins 1000 -x reference/index/YB886 -1 results/cutadapt/Bacillus_infection_T0_R1_trimmed.fq.gz -2 results/cutadapt/Bacillus_infection_T0_R2_trimmed.fq.gz -S results/alignment/T0.sam</span></code></pre>
           </div>
+          </p>
+        </details>
+        <p><br></p>
+        <p><code>Bowtie2</code> will return some alignment metrics. You see that you have more than 95% of sequence
+          mapped on the genome.</p>
+        <blockquote>
+          <p>Why it’s not 100% ?</p>
+        </blockquote>
+        <details>
+          <summary><strong>Answer:</strong></summary>
+          <p>
+            There are multiple answers to that question: - You got contaminated by others DNA (another organism,
+            vectors, adapters…). We checked this one so it will be less likely. - There are some sequencing errors which
+            introduce wrong sequence in your files, that you won’t be able to map. - There are mistakes in your
+            reference genome or it’s uncomplete.
+          </p>
+        </details>
+        <p><br></p>
+        <blockquote>
+          <p>Try to map the reads of the second time point (T10). Do you have the same rate of mapping ? Why ?</p>
+        </blockquote>
+        <details>
+          <summary><strong>Answer:</strong></summary>
+          <p>
+          <div class="sourceCode" id="cb8">
+            <pre
+              class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="ex">bowtie2</span> --very-sensitive --maxins 1000 -x reference/index/YB886 -1 results/cutadapt/Bacillus_infection_T10_R1_trimmed.fq.gz -2 results/cutadapt/Bacillus_infection_T10_R2_trimmed.fq.gz -S results/alignment/T10.sam</span></code></pre>
+          </div>
+          The mapping alignment ratio is lower. In the second time point, there are a lot of reads which map on the
+          phage (which is replicating) and not on the bacteria anymore.
           </p>
         </details>
         <p><br></p>
         <div id="the-sam-format-output" class="section level3">
           <h3>The sam format output</h3>
-          <p>Let’s look at the output that we have. The <code>grep -v &#39;^@&#39;</code> command allow to show lines
-            that don’t have a <code>@</code> at the beginning, <em>i. e.</em> the header.</p>
-          <div class="sourceCode" id="cb8">
+          <p>Let’s look at the output that we have. The <code>grep -v &#39;^@&#39;</code> command allows showing lines
+            that don’t have a <code>@</code> at the beginning, in our case it allows to skip the header.</p>
+          <div class="sourceCode" id="cb9">
             <pre
-              class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fu">grep</span> -v <span class="st">&#39;^@&#39;</span> results/alignment/T0.sam <span class="kw">|</span> <span class="fu">head</span> -n 4</span></code></pre>
+              class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">grep</span> -v <span class="st">&#39;^@&#39;</span> results/alignment/T0.sam <span class="kw">|</span> <span class="fu">head</span> -n 4</span></code></pre>
           </div>
           <pre><code>NS500446:543:HNM5TBGX7:1:11101:11655:1062       77      *       0       0       **0       0       GCAACAACATCATCTGCTANTTCTANTATTGATGANACCCTTA     EEEEEEEEEEEEAAEAEEE#EEAEE#EEAEEEEEA#EEE6E/E       YT:Z:UP
 NS500446:543:HNM5TBGX7:1:11101:11655:1062       141     *       0       0       **0       0       CAGCTTCCTTTGCAANNTGCTGCTT       EEEEEEEAEAEAEEE##EEEEE/EE       YT:Z:UP
@@ -10479,23 +10492,84 @@ NS500446:543:HNM5TBGX7:1:11101:19648:1065       163     manual_scaffold_1       
           <blockquote>
             <p>Using it try to explain the different following flags 77, 141, 83, 163, 99, 147.</p>
           </blockquote>
-          <p>The sam file is quite heavy, as for the fastq we are use to work with compressed files. We will at the same
-            time filter the mapping reads, sort them and index them using <code>samtools</code>. The <code>bam</code>
-            file is the compressed version of <code>sam</code>.</p>
-          <div class="sourceCode" id="cb10">
+          <p>The sam file is quite heavy, as for the fastq we are used to work with compressed files. We will at the
+            same time filter the mapping reads, sort them and index them using <code>samtools</code>. The
+            <code>bam</code> file is the compressed version of <code>sam</code>.</p>
+          <details>
+            <summary><strong>Bonus:</strong></summary>
+            <p>
+            <p>Use the following command:</p>
+            <div class="sourceCode" id="cb11">
+              <pre
+                class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="ex">samtools</span> --help</span></code></pre>
+            </div>
+            <pre><code>Program: samtools (Tools for alignments in the SAM format)
+Version: 1.3.1 (using htslib 1.3.1)
+
+Usage:   samtools &lt;command&gt; [options]
+
+Commands:
+  -- Indexing
+     dict           create a sequence dictionary file
+     faidx          index/extract FASTA
+     index          index alignment
+
+  -- Editing
+     calmd          recalculate MD/NM tags and &#39;=&#39; bases
+     fixmate        fix mate information
+     reheader       replace BAM header
+     rmdup          remove PCR duplicates
+     targetcut      cut fosmid regions (for fosmid pool only)
+     addreplacerg   adds or replaces RG tags
+
+  -- File operations
+     collate        shuffle and group alignments by name
+     cat            concatenate BAMs
+     merge          merge sorted alignments
+     mpileup        multi-way pileup
+     sort           sort alignment file
+     split          splits a file by read group
+     quickcheck     quickly check if SAM/BAM/CRAM file appears intact
+     fastq          converts a BAM to a FASTQ
+     fasta          converts a BAM to a FASTA
+
+  -- Statistics
+     bedcov         read depth per BED region
+     depth          compute the depth
+     flagstat       simple stats
+     idxstats       BAM index stats
+     phase          phase heterozygotes
+     stats          generate stats (former bamcheck)
+
+  -- Viewing
+     flags          explain BAM flags
+     tview          text alignment viewer
+     view           SAM&lt;-&gt;BAM&lt;-&gt;CRAM conversion
+     depad          convert padded BAM to unpadded BAM</code></pre>
+            <p>You see that samtools is package containing several modules to work with <code>sam</code>,<br />
+              <code>fasta</code> and others alignment files.
+            </p>
+            <p>For example, there is a module for the flag explanation that we checked earlier online. But you can also
+              do a lot of operation and statistics on your alignment files.</p>
+            If you want to use one of this module you have to call it using <code>samtools flags --help</code>. In that
+            case you will have the documentation of the flags module.
+            </p>
+          </details>
+          <p><br></p>
+          <div class="sourceCode" id="cb13">
             <pre
-              class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="co"># Sort and compressed the sam file.</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="ex">samtools</span> sort -n -O BAM results/alignment/T0.sam -o T0_tmp1.bam</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="co"># Keep only pairs with both reads mapped.</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="ex">samtools</span> fixmate --output-fmt bam T0_tmp1.bam T0_tmp2.bam</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="co"># Filter reads with low mapping quality.</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="ex">samtools</span> view --output-fmt bam -f 2 -q 30 -1 -b T0_tmp2.bam -o T0_tmp1.bam</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="co"># Sort the resulting reads.</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="ex">samtools</span> sort --output-fmt bam -l 9 T0_tmp1.bam -o results/alignment/T0_sorted.bam</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a><span class="co"># Index the reads</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a><span class="ex">samtools</span> index results/alignment/T0_sorted.bam</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a><span class="co"># Remove the sam files and the temporary files.</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a><span class="fu">rm</span> results/alignment/T0.sam T0_tmp1.bam T0_tmp2.bam</span></code></pre>
+              class="sourceCode sh"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="co"># Sort and compressed the sam file.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="ex">samtools</span> sort -n -O BAM results/alignment/T0.sam -o T0_tmp1.bam</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="co"># Keep only pairs with both reads mapped.</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a><span class="ex">samtools</span> fixmate --output-fmt bam T0_tmp1.bam T0_tmp2.bam</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a><span class="co"># Filter reads with low mapping quality.</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="ex">samtools</span> view --output-fmt bam -f 2 -q 30 -1 -b T0_tmp2.bam -o T0_tmp1.bam</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a><span class="co"># Sort the resulting reads.</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a><span class="ex">samtools</span> sort --output-fmt bam -l 9 T0_tmp1.bam -o results/alignment/T0_sorted.bam</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a><span class="co"># Index the reads</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a><span class="ex">samtools</span> index results/alignment/T0_sorted.bam</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a><span class="co"># Remove the sam files and the temporary files.</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a><span class="fu">rm</span> results/alignment/T0.sam T0_tmp1.bam T0_tmp2.bam</span></code></pre>
           </div>
           <p>The <code>rm</code> function allow to remove files through the command lines. Be careful with this one,
             it’s permanent deletion.</p>
@@ -10506,29 +10580,12 @@ NS500446:543:HNM5TBGX7:1:11101:19648:1065       163     manual_scaffold_1       
         <p>Once you align the reads you want to compute the coverage on your genome at each sequence of interest, genes
           in our case. To do that we will use the <code>bamCoverage</code> function from <a
             href="https://github.com/deeptools/deepTools">deeptools</a>.</p>
-        <div class="sourceCode" id="cb11">
+        <div class="sourceCode" id="cb14">
           <pre
-            class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/tracks</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam <span class="kw">\</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    <span class="ex">--outFileName</span> results/tracks/T0_unstranded.bw <span class="kw">\</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>    <span class="ex">--normalizeUsing</span> CPM <span class="kw">\</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>    <span class="ex">--extendReads</span> <span class="kw">\</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    <span class="ex">--ignoreDuplicates</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam <span class="kw">\</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>    <span class="ex">--outFileName</span> results/tracks/T0_forward.bw <span class="kw">\</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>    <span class="ex">--normalizeUsing</span> CPM <span class="kw">\</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a>    <span class="ex">--extendReads</span> <span class="kw">\</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a>    <span class="ex">--filterRNAstrand</span> forward <span class="kw">\</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a>    <span class="ex">--ignoreDuplicates</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam <span class="kw">\</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true"></a>    <span class="ex">--outFileName</span> results/tracks/T0_reverse.bw <span class="kw">\</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true"></a>    <span class="ex">--binSize</span> 1 <span class="kw">\</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true"></a>    <span class="ex">--normalizeUsing</span> CPM <span class="kw">\</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true"></a>    <span class="ex">--extendReads</span> <span class="kw">\</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true"></a>    <span class="ex">--filterRNAstrand</span> reverse <span class="kw">\</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true"></a>    <span class="ex">--ignoreDuplicates</span></span></code></pre>
+            class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p results/tracks</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam --outFileName results/tracks/T0_unstranded.bw --binSize 1 --normalizeUsing CPM --extendReads --ignoreDuplicates</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam --outFileName results/tracks/T0_forward.bw --binSize 1 --normalizeUsing CPM --extendReads --filterRNAstrand forward --ignoreDuplicates</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="ex">bamCoverage</span> --bam results/alignment/T0_sorted.bam --outFileName results/tracks/T0_reverse.bw --binSize 1 --normalizeUsing CPM --extendReads --filterRNAstrand reverse --ignoreDuplicates</span></code></pre>
         </div>
         <p>The output files are <code>bigwig</code> which are compress files with coverage of a genomic track.</p>
         <blockquote>
@@ -10570,6 +10627,53 @@ NS500446:543:HNM5TBGX7:1:11101:19648:1065       163     manual_scaffold_1       
         <p>Now let’s visualize our tracks using IGV. In IGV you can load the fasta genome and then the sorted
           <code>bam</code>, <code>bigwig</code> or <code>gff</code>. The <code>gff</code> is the genome annotation file
           with the genes position.</p>
+        <p>For this step, you will have to download IGV on your own personal computer. Here is the page where the
+          installation file is available for each OS (Windows, Mac or Linux).</p>
+        <p><a href="https://software.broadinstitute.org/software/igv/download"
+            class="uri">https://software.broadinstitute.org/software/igv/download</a></p>
+        <p>Once it’s downloaded you can open it. Load the bacterial <code>YB886</code> genome form the reference folder
+          and some <code>bw</code> files that you have generated. You can also load the gene annotation <code>gff</code>
+          file.</p>
+        <p>Now we can play around and explore your data.</p>
+        <blockquote>
+          <p>Is it uniform ?</p>
+        </blockquote>
+        <details>
+          <summary><strong>Answer:</strong></summary>
+          <p>
+            No. It’s a RNA-seq, not a genomic DNA coverage.
+          </p>
+        </details>
+        <p><br></p>
+        <blockquote>
+          <p>If you load the stranded files, Do you see antisens RNA (it means coverage in the opposite strand of the
+            gene) ?</p>
+        </blockquote>
+        <details>
+          <summary><strong>Answer:</strong></summary>
+          <p>
+            There are some coverage, but it’s very low. If you do the statistics, you will see that only 2-3% of the
+            reads are antisens in these samples. For some species, samples, there are a lot of antisens RNA but it’s
+            generally not more than 10-20%.
+          </p>
+        </details>
+        <p><br></p>
+        <blockquote>
+          <p>Looking at the strands of the genes on the whole genome (look at the tracks on the forward and reverse
+            strand), is it a uniform distribution or not ? Based on your knowledge on bacteria, why do you think it’s
+            not uniform ?</p>
+        </blockquote>
+        <details>
+          <summary><strong>Answer:</strong></summary>
+          <p>
+            Mainly the first half of the genome the genes are in the forward strand and there are in reverse in the
+            second one. The reason is the origin of replication of the bacteria is the beginning/end of the reference
+            genome (the genome is circular so the beginning and the end of the reference is the same region). Evolution
+            tends to select genes which are in the same direction as the replication of the DNA. So in the first half
+            the replication goes in the forward way, and the genes too, and the contrary happens in the second half.
+          </p>
+        </details>
+        <p><br></p>
       </div>
     </div>
 

@@ -36,8 +36,8 @@ All the data are available in the `transcriptomics_supbiotech_2023/` folder.
 
 ## Trimming the adaptors
 
-As we saw in the first session there were some adapters sequences at the 
-beginning of the reads. The solution is to trimmed the reads to remove these 
+As we saw in the first session there were some adaptors sequences at the 
+beginning of the reads. The solution is to trim the reads to remove these 
 bases to avoid mapping issues as they were artificially added.
 
 > Looking at the fastqc report from the previous session how much base pairs 
@@ -54,7 +54,7 @@ all the adapters sequences.
 To trim the sequence we will use [cutadapt](https://github.com/marcelm/cutadapt)
 software. 
 
-> Looking at the help menu of cutadpat what command do you propose to trim your 
+> Looking at the help menu of cutadapt what command do you propose to trim your 
 reads ?
 
 <details><summary>**Clue:**</summary>
@@ -70,16 +70,8 @@ cutadapt --help
 <p>
 ```{sh eval = FALSE}
 mkdir -p results/cutadapt/
-cutadapt -u 8 -U 8 -q 33,33 --trim-n -m 20 \
-    -o results/cutadapt/Bacillus_infection_T0_R1_trimmed.fq.gz \
-    -p results/cutadapt/Bacillus_infection_T0_R2_trimmed.fq.gz \
-    fastq/Bacillus_infection_T0_R1.fq.gz \
-    fastq/Bacillus_infection_T0_R2.fq.gz
-cutadapt -u 8 -U 8 -q 33,33 --trim-n -m 20 \
-    -o results/cutadapt/Bacillus_infection_T10_R1_trimmed.fq.gz \
-    -p results/cutadapt/Bacillus_infection_T10_R2_trimmed.fq.gz \
-    fastq/Bacillus_infection_T10_R1.fq.gz \
-    fastq/Bacillus_infection_T10_R2.fq.gz
+cutadapt -u 8 -U 8 -q 33,33 --trim-n -m 20 -o results/cutadapt/Bacillus_infection_T0_R1_trimmed.fq.gz -p results/cutadapt/Bacillus_infection_T0_R2_trimmed.fq.gz fastq/Bacillus_infection_T0_R1.fq.gz fastq/Bacillus_infection_T0_R2.fq.gz
+cutadapt -u 8 -U 8 -q 33,33 --trim-n -m 20 -o results/cutadapt/Bacillus_infection_T10_R1_trimmed.fq.gz -p results/cutadapt/Bacillus_infection_T10_R2_trimmed.fq.gz fastq/Bacillus_infection_T10_R1.fq.gz fastq/Bacillus_infection_T10_R2.fq.gz
 ```
 </p>
 </details>
@@ -93,10 +85,7 @@ changed.
 ```{sh eval = FALSE}
 mkdir -p results/fastqc results/fastq_screen
 fastqc -o results/fastqc results/cutadapt/*fq.gz 
-fastq_screen \
-    --outdir results/fastq_screen \
-    --conf reference/fastq_screen.conf \
-    results/cutadapt/*fq.gz 
+fastq_screen --outdir results/fastq_screen --conf reference/fastq_screen.conf --force results/cutadapt/*fq.gz 
 ```
 </p>
 </details>
@@ -109,9 +98,9 @@ from the reverse reads.
 
 ## Aligning the sequences
 
-Now that we have cleaned and well prepared our sequences we can start our 
+Now that we have cleaned and well-prepared our sequences we can start our 
 analysis. The first step is to align the reads on the reference genome. The most
-known algorithm for mapping are `bowtie2`, `bwa` and `minimap`. There are also 
+known algorithms for mapping are `bowtie2`, `bwa` and `minimap`. There are also 
 some others aligners more specific to RNA-seq such as `STAR` or `salmon`. For
 bacteria where the genomes are small with no repeated regions, there are not 
 necessary.
@@ -145,8 +134,8 @@ bowtie2-build reference/YB886.fa reference/index/YB886
 </details>
 <br>
 
-Once the index is done we can use th e`bowtie2` command to map the reads. We 
-will used the `--very-sensitive` method. You can look a the 
+Once the index is done we can use the `bowtie2` command to map the reads. We 
+will use the `--very-sensitive` method. You can look at the 
 [documentation](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml):
 
 ```{sh eval = FALSE}
@@ -186,22 +175,52 @@ Launch the alignment using bowtie2 paired end mode:
 <p>
 ```{sh eval = FALSE}
 mkdir -p results/alignment
-bowtie2 \
-    --very-sensitive \
-    --maxins 1000 \
-    -x reference/index/YB886 \
-    -1 results/cutadapt/Bacillus_infection_T0_R1_trimmed.fq.gz \
-    -2 results/cutadapt/Bacillus_infection_T0_R2_trimmed.fq.gz \
-    -S results/alignment/T0.sam
+bowtie2 --very-sensitive --maxins 1000 -x reference/index/YB886 -1 results/cutadapt/Bacillus_infection_T0_R1_trimmed.fq.gz -2 results/cutadapt/Bacillus_infection_T0_R2_trimmed.fq.gz -S results/alignment/T0.sam
 ```
 </p>
 </details>
 <br>
 
+`Bowtie2` will return some alignment metrics. You see that you have more than 
+95% of sequence mapped on the genome. 
+
+> Why it's not 100% ?
+
+<details><summary>**Answer:**</summary>
+<p>
+There are multiple answers to that question:
+- You got contaminated by others DNA (another organism, vectors, adapters...). 
+We checked this one so it will be less likely.
+- There are some sequencing errors which introduce wrong sequence in your files, 
+that you won't be able to map.
+- There are mistakes in your reference genome or it's uncomplete.
+</p>
+</details>
+<br>
+
+> Try to map the reads of the second time point (T10). Do you have the same rate 
+of mapping ? Why ?
+
+<details><summary>**Answer:**</summary>
+<p>
+```{sh eval = FALSE}
+bowtie2 --very-sensitive --maxins 1000 -x reference/index/YB886 -1 results/cutadapt/Bacillus_infection_T10_R1_trimmed.fq.gz -2 results/cutadapt/Bacillus_infection_T10_R2_trimmed.fq.gz -S results/alignment/T10.sam
+```
+
+The mapping alignment ratio is lower. In the second time point, there are a lot 
+of reads which map on the phage (which is replicating) and not on the bacteria
+anymore.
+</p>
+</details>
+<br>
+
+
+
 ### The sam format output
 
-Let's look at the output that we have. The `grep -v '^@'` command allow to show
-lines that don't have a `@` at the beginning, *i. e.* the header.
+Let's look at the output that we have. The `grep -v '^@'` command allows showing
+lines that don't have a `@` at the beginning, in our case it allows to skip the
+header.
 
 ```{sh eval = FALSE}
 grep -v '^@' results/alignment/T0.sam | head -n 4
@@ -236,9 +255,78 @@ https://broadinstitute.github.io/picard/explain-flags.html
 > Using it try to explain the different following flags 77, 141, 83, 163, 99, 
 147.
 
-The sam file is quite heavy, as for the fastq we are use to work with compressed
-files. We will at the same time filter the mapping reads, sort them  and index
-them using `samtools`. The `bam` file is the compressed version of `sam`.
+The sam file is quite heavy, as for the fastq we are used to work with 
+compressed files. We will at the same time filter the mapping reads, sort them
+and index them using `samtools`. The `bam` file is the compressed version of
+`sam`.
+
+<details><summary>**Bonus:**</summary>
+<p>
+Use the following command:
+```{sh eval = FALSE}
+samtools --help
+``` 
+
+```
+Program: samtools (Tools for alignments in the SAM format)
+Version: 1.3.1 (using htslib 1.3.1)
+
+Usage:   samtools <command> [options]
+
+Commands:
+  -- Indexing
+     dict           create a sequence dictionary file
+     faidx          index/extract FASTA
+     index          index alignment
+
+  -- Editing
+     calmd          recalculate MD/NM tags and '=' bases
+     fixmate        fix mate information
+     reheader       replace BAM header
+     rmdup          remove PCR duplicates
+     targetcut      cut fosmid regions (for fosmid pool only)
+     addreplacerg   adds or replaces RG tags
+
+  -- File operations
+     collate        shuffle and group alignments by name
+     cat            concatenate BAMs
+     merge          merge sorted alignments
+     mpileup        multi-way pileup
+     sort           sort alignment file
+     split          splits a file by read group
+     quickcheck     quickly check if SAM/BAM/CRAM file appears intact
+     fastq          converts a BAM to a FASTQ
+     fasta          converts a BAM to a FASTA
+
+  -- Statistics
+     bedcov         read depth per BED region
+     depth          compute the depth
+     flagstat       simple stats
+     idxstats       BAM index stats
+     phase          phase heterozygotes
+     stats          generate stats (former bamcheck)
+
+  -- Viewing
+     flags          explain BAM flags
+     tview          text alignment viewer
+     view           SAM<->BAM<->CRAM conversion
+     depad          convert padded BAM to unpadded BAM
+```
+
+You see that samtools is package containing several modules to work with `sam`,  
+`fasta` and others alignment files.
+
+For example, there is a module for the flag explanation that we checked earlier 
+online. But you can also do a lot of operation and statistics on your alignment 
+files.
+
+If you want to use one of this module you have to call it using 
+`samtools flags --help`. In that case you will have the documentation of the 
+flags module.
+</p>
+</details>
+<br>
+
 
 ```{sh eval = FALSE}
 # Sort and compressed the sam file.
@@ -255,7 +343,7 @@ samtools index results/alignment/T0_sorted.bam
 rm results/alignment/T0.sam T0_tmp1.bam T0_tmp2.bam
 ```
 
-The `rm` function allow to remove files through the command lines. Be careful 
+The `rm` function allow removing files through the command lines. Be careful 
 with this one, it's permanent deletion.
 
 ## Generating the transcription tracks
@@ -266,26 +354,9 @@ sequence of interest, genes in our case. To do that we will use the
 
 ```{sh eval = FALSE}
 mkdir -p results/tracks
-bamCoverage --bam results/alignment/T0_sorted.bam \
-    --outFileName results/tracks/T0_unstranded.bw \
-    --binSize 1 \
-    --normalizeUsing CPM \
-    --extendReads \
-    --ignoreDuplicates
-bamCoverage --bam results/alignment/T0_sorted.bam \
-    --outFileName results/tracks/T0_forward.bw \
-    --binSize 1 \
-    --normalizeUsing CPM \
-    --extendReads \
-    --filterRNAstrand forward \
-    --ignoreDuplicates
-bamCoverage --bam results/alignment/T0_sorted.bam \
-    --outFileName results/tracks/T0_reverse.bw \
-    --binSize 1 \
-    --normalizeUsing CPM \
-    --extendReads \
-    --filterRNAstrand reverse \
-    --ignoreDuplicates
+bamCoverage --bam results/alignment/T0_sorted.bam --outFileName results/tracks/T0_unstranded.bw --binSize 1 --normalizeUsing CPM --extendReads --ignoreDuplicates
+bamCoverage --bam results/alignment/T0_sorted.bam --outFileName results/tracks/T0_forward.bw --binSize 1 --normalizeUsing CPM --extendReads --filterRNAstrand forward --ignoreDuplicates
+bamCoverage --bam results/alignment/T0_sorted.bam --outFileName results/tracks/T0_reverse.bw --binSize 1 --normalizeUsing CPM --extendReads --filterRNAstrand reverse --ignoreDuplicates
 ```
 
 The output files are `bigwig` which are compress files with coverage of a 
@@ -329,3 +400,55 @@ tracks separately.
 Now let's visualize our tracks using IGV. In IGV you can load the fasta genome
 and then the sorted `bam`, `bigwig` or `gff`. The `gff` is the genome annotation 
 file with the genes position.
+
+For this step, you will have to download IGV on your own personal computer. Here
+is the page where the installation file is available for each OS (Windows, Mac
+or Linux).
+
+https://software.broadinstitute.org/software/igv/download
+
+Once it's downloaded you can open it. Load the bacterial `YB886` genome from the
+reference folder and some `bw` files that you have generated. You can also load 
+the gene annotation `gff` file. 
+
+Now we can play around and explore your data. 
+
+> Is it uniform ? 
+
+<details><summary>**Answer:**</summary>
+<p>
+No. It's a RNA-seq, not a genomic DNA coverage.
+</p>
+</details>
+<br>
+
+> If you load the stranded files, Do you see antisens RNA (it means coverage in the 
+opposite strand of the gene) ?
+
+<details><summary>**Answer:**</summary>
+<p>
+There are some coverage, but it's very low. If you do the statistics, you will 
+see that only 2-3% of the reads are antisens in these samples. For some species,
+samples, there are a lot of antisens RNA but it's generally not more than 
+10-20%.
+</p>
+</details>
+<br>
+
+> Looking at the strands of the genes on the whole genome (look at the tracks on
+the forward and reverse strand), is it a uniform distribution or not  ? Based on 
+your knowledge on bacteria, why do you think it's not uniform ?
+
+<details><summary>**Answer:**</summary>
+<p>
+Mainly the first half of the genome the genes are in the forward strand and 
+there are in reverse in the second one. The reason is the origin of replication 
+of the bacteria is the beginning/end of the reference genome (the genome is 
+circular so the beginning and the end of the reference is the same region). 
+Evolution tends to select genes which are in the same direction as the 
+replication of the DNA. So in the first half the replication goes in the forward 
+way, and the genes too, and the contrary happens in the second half. 
+</p>
+</details>
+<br>
+
