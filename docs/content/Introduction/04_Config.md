@@ -19,6 +19,11 @@ https://docs.docker.com/desktop/install/mac-install/
 ### To install it on Windows:
 https://docs.docker.com/desktop/install/windows-install/
 
+For Windows, you will probably encounter an issue with WSL at the end of the
+installation. Here are the instructions to install it:
+
+https://learn.microsoft.com/en-us/windows/wsl/install 
+
 ### To install it on Linux/
 https://docs.docker.com/desktop/install/linux-install/
 
