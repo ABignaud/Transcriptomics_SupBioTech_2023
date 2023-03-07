@@ -83,3 +83,13 @@ Open the archive file, by entering that command:
 `tar -xvzf transcriptomics_supbiotech_2023.tar.gz`
 
 Congratulations your environment is set up !
+
+
+## Install IGV 
+
+For the Session 2,
+[Integrative Genomics Viewer (IGV)](https://software.broadinstitute.org/software/igv/) 
+will be needed. To isntall it go to the following page to download the 
+executable and run it:
+
+https://software.broadinstitute.org/software/igv/download

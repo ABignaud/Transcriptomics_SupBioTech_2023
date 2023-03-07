@@ -9,10 +9,10 @@ permalink: /Session02/
 ## Presentations
 
 - **\[20 minutes\]** Lecture 3 - The RNA-seq experiment
-[[PDF]]()
+[[PDF]](3_RNAseq.pdf)
 
 - **\[30 minutes\]** Lecture 4 - How to align sequencing data to a reference genome
-[[PDF]]()
+[[PDF]](4_Sequence_alignment.pdf)
 
 ---
 
