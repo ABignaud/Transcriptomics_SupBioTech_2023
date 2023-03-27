@@ -17,8 +17,7 @@ reference genome.
 
 For simplicity purposes, we will be using specialized tools command line in this
 practice session, but all data manipulation steps can be performed or modified
-pretty easily using a scripting language. The tools that will be needed here
-are:
+using a scripting language. The tools that will be needed here are:
 
 * [cutadapt](https://github.com/marcelm/cutadapt)
 * [samtools](http://www.htslib.org/)
@@ -27,7 +26,7 @@ are:
 * [IGV](https://software.broadinstitute.org/software/igv/)
 
 For the analysis we will use data from *Bacillus subtilis* culture infected by 
-its phage SPP1 RNA-seq libraries. The reads are subsampled to accelrate the 
+its phage SPP1 RNA-seq libraries. The reads are subsampled to accelerate the 
 quality check. The reference genome from this library is the YB886 strain from
 *Bacillus subtilis* and its phage SPP1.
 
@@ -372,7 +371,7 @@ between the forward and reverse to compute the coverage.
 </details>
 <br>
 
-> What does CPM means ? Why are we using that normalization ?
+> What does CPM mean ? Why are we using that normalization ?
 
 <details><summary>**Answer:**</summary>
 <p>
