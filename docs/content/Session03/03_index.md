@@ -9,7 +9,7 @@ permalink: /Session03/
 ## Presentations
 
 - **\[30 minutes\]** Lecture 5 - Differential gene expression analysis.
-[[PDF]]()
+[[PDF]](5_DESeq.pdf)
 
 ---
 
