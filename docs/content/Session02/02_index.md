@@ -25,3 +25,4 @@ permalink: /Session02/
     alignment tracks 
     > Visualization of the alignment data using `IGV`.
 
+[[Quiz]](Quiz_02.pdf)

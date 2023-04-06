@@ -25,3 +25,5 @@ Check if everyone manage to install the dependencies.
 
     > Learn to do control the quality of sequencing data using *fastQC*, 
     *fastq screen*, *multiQC*.
+
+[[Quiz]](Quiz_01.pdf)

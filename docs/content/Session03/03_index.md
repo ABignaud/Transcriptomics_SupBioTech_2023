@@ -21,6 +21,8 @@ permalink: /Session03/
     > Presentation of R and utilization of `DESeq2` package to observe gene
     differential expression.
     
+[[Quiz]](Quiz_03.pdf)
+
 --- 
 
 Presentation of the project for the exam.
